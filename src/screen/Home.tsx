@@ -1,3 +1,3 @@
 export default function Home() {
-  return null;
+  return <div style={{ backgroundColor: "white", height: "100vh" }}>Home</div>;
 }

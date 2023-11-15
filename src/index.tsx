@@ -7,13 +7,13 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/router";
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
 body { 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
@@ -38,7 +38,7 @@ root.render(
   <RecoilRoot>
     <GlobalStyle />
     <ThemeProvider theme={theme}>
-      <App />
+      <RouterProvider router={router}></RouterProvider>?
     </ThemeProvider>
   </RecoilRoot>
 );
