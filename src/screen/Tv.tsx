@@ -1,3 +1,7 @@
 export default function Tv() {
-  return <h1>Tv</h1>;
+  return (
+    <div style={{ backgroundColor: "rgba(0,0,0,0.8)", height: "100vh" }}>
+      Tv
+    </div>
+  );
 }
