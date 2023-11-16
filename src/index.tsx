@@ -20,9 +20,7 @@ body {
   line-height: 1.2;
   background-color: black;
   color: ${(props) => props.theme.white.dakrer};
-  height: 200vh;
-  
-  
+  height: 200vh;   
 }
   * {
     box-sizing:border-box;
