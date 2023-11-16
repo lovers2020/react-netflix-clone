@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import reportWebVitals from "./reportWebVitals";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
@@ -8,6 +7,7 @@ import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/router";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -17,7 +17,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   font-family: 'Noto Sans'; 
-  color: black;
+  line-height: 1.2;
+  background-color: black;
+  color: ${(props) => props.theme.white.dakrer};
+  height: 200vh;
   
   
 }
@@ -29,17 +32,17 @@ body {
     color:inherit;
   }
 `;
-
+const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+	document.getElementById("root") as HTMLElement
 );
 root.render(
-  <RecoilRoot>
-    <GlobalStyle />
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router}></RouterProvider>?
-    </ThemeProvider>
-  </RecoilRoot>
+	<RecoilRoot>
+		<QueryClientProvider client={queryClient}>
+			<ThemeProvider theme={theme}>
+				<GlobalStyle />
+				<RouterProvider router={router}></RouterProvider>
+			</ThemeProvider>
+		</QueryClientProvider>
+	</RecoilRoot>
 );
-
-reportWebVitals();

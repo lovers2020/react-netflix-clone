@@ -1,10 +1,16 @@
 import { BsSearch } from "react-icons/bs";
-import { motion } from "framer-motion";
+import {
+  motion,
+  useAnimation,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion";
 import styled from "styled-components";
 import { Link, useMatch } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getMovies } from "../api";
 
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -31,7 +37,7 @@ const Logo = styled(motion.svg)`
     stroke: white;
   }
 `;
-
+// d1a8e6c5062fa752014386f3e3d7c345
 const Items = styled.ul`
   display: flex;
   align-items: center;
@@ -60,6 +66,29 @@ const Circle = styled(motion.span)`
   border-radius: 50%;
   background-color: ${(props) => props.theme.red};
 `;
+const Search = styled(motion.span)`
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: white;
+  svg {
+    height: 20px;
+  }
+`;
+
+const Input = styled(motion.input)`
+  transform-origin: right center;
+  position: absolute;
+  right: 0px;
+  padding: 5px 10px;
+  padding-left: 40px;
+  z-index: -1;
+  color: white;
+  font-size: 16px;
+  background-color: transparent;
+  border: 1px solid ${(props) => props.theme.white.lighter};
+  border-radius: 10px;
+`;
 const logoVariants = {
   normal: {
     fillOpacity: 1,
@@ -71,34 +100,41 @@ const logoVariants = {
     },
   },
 };
-const Search = styled(motion.span)`
-  position: relative;
-  display: flex;
-  align-items: center;
-
-  color: white;
-  svg {
-    height: 20px;
-  }
-`;
-
-const Input = styled(motion.input)`
-  transform-origin: right center;
-  position: absolute;
-  left: -150px;
-  border: none;
-  border-radius: 5px;
-  padding: 3px 5px;
-`;
+const navVariants = {
+  top: { backgroundColor: "rgba(0,0,0,0)" },
+  scroll: { backgroundColor: "rgba(0,0,0,1)" },
+};
 
 export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const homeMatch = useMatch("/");
   const tvMatch = useMatch("tv");
-  const toggleSearch = () => setSearchOpen((prev) => !prev);
+  const inputAnimation = useAnimation();
+  const navAnimation = useAnimation();
+  const { scrollY, scrollYProgress } = useScroll();
+
+  const toggleSearch = () => {
+    setSearchOpen((prev) => !prev);
+    if (searchOpen) {
+      inputAnimation.start({
+        scaleX: 0,
+      });
+    } else {
+      inputAnimation.start({
+        scaleX: 1,
+      });
+    }
+  };
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 80) {
+      navAnimation.start("scroll");
+    } else {
+      navAnimation.start("top");
+    }
+  });
   return (
     <>
-      <Nav>
+      <Nav variants={navVariants} initial={"top"} animate={navAnimation}>
         <Col>
           <Logo
             variants={logoVariants}
@@ -127,21 +163,24 @@ export default function Header() {
         <Col>
           <Search>
             <motion.svg
+              style={{ marginRight: "15px" }}
               onClick={toggleSearch}
-              animate={{ x: searchOpen ? -180 : 0 }}
+              animate={{ x: searchOpen ? -200 : 0 }}
               transition={{ type: "linear" }}
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 16 16"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
             </motion.svg>
             <Input
-              animate={{ scaleX: searchOpen ? 1 : 0 }}
+              id="searchBox"
+              animate={inputAnimation}
+              initial={{ scaleX: 0 }}
               transition={{ type: "linear" }}
-              placeholder="Search for movie or tv show"
+              placeholder="Search for movie or tv show..."
             />
           </Search>
         </Col>
