@@ -5,22 +5,26 @@ import Search from "../screen/Search";
 import Home from "../screen/Home";
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        path: "",
-        element: <Home />,
-      },
-      {
-        path: "/tv",
-        element: <Tv />,
-      },
-      {
-        path: "/search",
-        element: <Search />,
-      },
-    ],
-  },
+	{
+		path: "/",
+		element: <App />,
+		children: [
+			{
+				path: "",
+				element: <Home />,
+			},
+			{
+				path: "/movies/:movieId",
+				element: <Home />,
+			},
+			{
+				path: "/tv",
+				element: <Tv />,
+			},
+			{
+				path: "/search",
+				element: <Search />,
+			},
+		],
+	},
 ]);
