@@ -15,9 +15,10 @@ const GlobalStyle = createGlobalStyle`
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         font-size: 16px; 
-        font-family: inherit;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-weight: 300;
         line-height: 1.2;
-        background-color: black;
+        background-color: #141414;
         color: ${(props) => props.theme.white.dakrer};
         height: 200vh;
         overflow-x: hidden;     
