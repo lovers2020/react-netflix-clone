@@ -14,7 +14,7 @@ export const DetailMovie = styled(motion.div)`
 	width: 100%;
 	position: fixed;
 	width: 50vw;
-	height: 90vh;
+	height: 80vh;
 	top: 0;
 	bottom: 0;
 	left: 0;
@@ -27,17 +27,18 @@ export const DetailMovie = styled(motion.div)`
 `;
 export const DetailCover = styled.div`
 	width: 100%;
-	height: 40%;
+	height: 45%;
 	background-size: cover;
 	background-position: center center;
 `;
 export const DetailTitle = styled.h3`
 	color: ${(props) => props.theme.white.lighter};
 	padding: 20px;
-	font-size: 34px;
+	font-size: 38px;
+	font-weight: 400;
 `;
 export const DetailOverView = styled.p`
-	width: 50%;
+	font-size: 20px;
 	padding: 20px;
 	color: ${(props) => props.theme.white.lighter};
 `;

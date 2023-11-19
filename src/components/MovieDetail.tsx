@@ -1,3 +1,5 @@
+import { useQuery } from "react-query";
+import { getMovieDetail } from "../api";
 import {
 	DetailCover,
 	DetailMatch,
@@ -8,8 +10,18 @@ import {
 } from "../styles/MovieDetailStyle";
 import { makeImagePath } from "../utils";
 import { useNavigate } from "react-router-dom";
-
+interface IGenres {
+	id: number;
+	name: string;
+}
 export default function MovieClicked({ bigMovieMatch, clickedMovie }: any) {
+	const { data, isLoading } = useQuery<IGenres>("genres", () =>
+		getMovieDetail(clickedMovie.id)
+	);
+
+	function getMovieGenres(data: any) {
+		return data.genres.map((genre: any) => genre.name).join(", ");
+	}
 	const navigate = useNavigate();
 	const onOverlayClick = () => navigate("/");
 	return (
@@ -33,11 +45,37 @@ export default function MovieClicked({ bigMovieMatch, clickedMovie }: any) {
 							}}
 						></DetailCover>
 						<DetailTitle>{clickedMovie.title}</DetailTitle>
-						<DetailMatch>
-							Match {Math.round(clickedMovie.vote_average * 10)}%
-						</DetailMatch>
+						<div style={{ display: "flex" }}>
+							<div style={{ width: "60%" }}>
+								<DetailMatch>
+									{Math.round(clickedMovie.vote_average * 10)}
+									% Match
+								</DetailMatch>
 
-						<DetailOverView>{clickedMovie.overview}</DetailOverView>
+								<DetailOverView>
+									{clickedMovie.overview}
+								</DetailOverView>
+							</div>
+							<div
+								style={{
+									paddingLeft: "2rem",
+									display: "flex",
+								}}
+							>
+								<span
+									style={{
+										color: "rgba(255,255,255,0.5)",
+									}}
+								>
+									Genres:
+								</span>
+								<span>
+									{getMovieGenres(data)
+										? getMovieGenres(data)
+										: null}
+								</span>
+							</div>
+						</div>
 					</>
 				)}
 			</DetailMovie>

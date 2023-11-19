@@ -39,7 +39,6 @@ export default function Home() {
 		useQuery<IMovieResult>("topRated", getTopRated);
 	const { data: upComing, isLoading: upComingLoading } =
 		useQuery<IMovieResult>("upComing", getUpComing);
-	console.log(topRated);
 	// const clickedMovie =
 	//     bigMovieMatch?.params.movieId &&
 	//     trendingMovies?.results.find(
@@ -70,11 +69,7 @@ export default function Home() {
 				<Loader>Loading....</Loader>
 			) : (
 				<>
-					<MainDisplay
-						bgImagePath={trendingNow?.results[0].backdrop_path}
-						title={trendingNow?.results[0].title}
-						overview={trendingNow?.results[0].overview}
-					></MainDisplay>
+					<MainDisplay data={trendingNow}></MainDisplay>
 					<SlideContainer>
 						<Slide
 							data={trendingNow}

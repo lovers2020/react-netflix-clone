@@ -18,15 +18,15 @@ export interface IMovieResult {
 	total_pages: number;
 	total_results: number;
 }
+const options = {
+	method: "GET",
+	headers: {
+		accept: "application/json",
+		Authorization: API_KEY,
+	},
+};
 
 export async function getMovies() {
-	const options = {
-		method: "GET",
-		headers: {
-			accept: "application/json",
-			Authorization: API_KEY,
-		},
-	};
 	const response = await fetch(
 		"https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
 		options
@@ -35,13 +35,6 @@ export async function getMovies() {
 	return jsonParse;
 }
 export async function getPopular() {
-	const options = {
-		method: "GET",
-		headers: {
-			accept: "application/json",
-			Authorization: API_KEY,
-		},
-	};
 	const response = await fetch(
 		"https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
 		options
@@ -50,13 +43,6 @@ export async function getPopular() {
 	return jsonParse;
 }
 export async function getUpComing() {
-	const options = {
-		method: "GET",
-		headers: {
-			accept: "application/json",
-			Authorization: API_KEY,
-		},
-	};
 	const response = await fetch(
 		"https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
 		options
@@ -65,15 +51,16 @@ export async function getUpComing() {
 	return jsonParse;
 }
 export async function getTopRated() {
-	const options = {
-		method: "GET",
-		headers: {
-			accept: "application/json",
-			Authorization: API_KEY,
-		},
-	};
 	const response = await fetch(
 		"https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
+		options
+	);
+	const jsonParse = await response.json().catch((err) => console.error(err));
+	return jsonParse;
+}
+export async function getMovieDetail(id: string) {
+	const response = await fetch(
+		`https://api.themoviedb.org/3/movie/${id}?language=en-US`,
 		options
 	);
 	const jsonParse = await response.json().catch((err) => console.error(err));
