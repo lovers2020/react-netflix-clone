@@ -14,7 +14,7 @@ export const DetailMovie = styled(motion.div)`
 	width: 100%;
 	position: fixed;
 	width: 50vw;
-	height: 80vh;
+	height: 90vh;
 	top: 0;
 	bottom: 0;
 	left: 0;

@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { getMovieDetail } from "../api";
+import { getMovieDetail, getMovies } from "../api";
 import {
 	DetailCover,
 	DetailMatch,
@@ -10,15 +10,19 @@ import {
 } from "../styles/MovieDetailStyle";
 import { makeImagePath } from "../utils";
 import { useNavigate } from "react-router-dom";
-interface IGenres {
-	id: number;
-	name: string;
+interface IMovieDetails {
+	genres: [{ id: number; name: string }];
+	homepage: string;
+	release_date: string;
+	runtime: number;
+	vote_average: number;
 }
 export default function MovieClicked({ bigMovieMatch, clickedMovie }: any) {
-	const { data, isLoading } = useQuery<IGenres>("genres", () =>
-		getMovieDetail(clickedMovie.id)
+	const id = clickedMovie?.id;
+	const { data: genre, isLoading: genreisLoading } = useQuery<IMovieDetails>(
+		"genres",
+		() => getMovieDetail(id)
 	);
-
 	function getMovieGenres(data: any) {
 		return data.genres.map((genre: any) => genre.name).join(", ");
 	}
@@ -70,9 +74,9 @@ export default function MovieClicked({ bigMovieMatch, clickedMovie }: any) {
 									Genres:
 								</span>
 								<span>
-									{getMovieGenres(data)
-										? getMovieGenres(data)
-										: null}
+									{genreisLoading
+										? "Loading..."
+										: getMovieGenres(genre)}
 								</span>
 							</div>
 						</div>

@@ -58,7 +58,7 @@ export async function getTopRated() {
 	const jsonParse = await response.json().catch((err) => console.error(err));
 	return jsonParse;
 }
-export async function getMovieDetail(id: string) {
+export async function getMovieDetail(id: number) {
 	const response = await fetch(
 		`https://api.themoviedb.org/3/movie/${id}?language=en-US`,
 		options

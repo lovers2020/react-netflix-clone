@@ -13,6 +13,7 @@ export const Nav = styled(motion.nav)`
 	font-weight: 400;
 	padding: 20px 60px;
 	color: white;
+	z-index: 1000;
 `;
 export const Col = styled.div`
 	display: flex;
