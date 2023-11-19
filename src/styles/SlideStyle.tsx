@@ -4,7 +4,6 @@ import styled from "styled-components";
 export const Slider = styled.div`
 	position: relative;
 	top: -100px;
-
 	&:hover {
 		#slideBtn {
 			opacity: 1;
@@ -20,7 +19,7 @@ export const PrevNextBtn = styled.div`
 	background-color: rgba(0, 0, 0, 0.5);
 	border-radius: 25px;
 	position: absolute;
-	z-index: 100;
+	z-index: 1;
 	cursor: pointer;
 	opacity: 0;
 	&:hover {
@@ -44,11 +43,10 @@ export const Row = styled(motion.div)`
 	width: 100%;
 	padding: 0 2rem;
 `;
-export const Box = styled(motion.div)<{ bgPhoto: string }>`
-	background-color: red;
+export const Box = styled(motion.div)<{ bgphoto: string }>`
 	height: 180px;
 	border-radius: 5px;
-	background-image: url(${(props) => props.bgPhoto});
+	background-image: url(${(props) => props.bgphoto});
 	background-size: cover;
 	background-position: center center;
 	cursor: pointer;
@@ -73,46 +71,7 @@ export const Info = styled(motion.div)`
 		font-size: 16px;
 	}
 `;
-export const Overlay = styled(motion.div)`
-	position: fixed;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.7);
-	opacity: 0;
-`;
-export const BigMovie = styled(motion.div)`
-	position: fixed;
-	width: 40vw;
-	height: 80vh;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
-	border-radius: 15px;
-	overflow: hidden;
-	background-color: ${(props) => props.theme.black.lighter};
-`;
-export const BigCover = styled.div`
-	width: 100%;
-	height: 400px;
-	background-size: cover;
-	background-position: center center;
-`;
-export const BigTitle = styled.h3`
-	color: ${(props) => props.theme.white.lighter};
-	padding: 10px;
-	font-size: 46px;
-	position: relative;
-	top: -80px;
-`;
-export const BigOverView = styled.p`
-	padding: 20px;
-	color: ${(props) => props.theme.white.lighter};
-	position: relative;
-	top: -80px;
-`;
+
 export const boxVariants = {
 	normal: { scale: 1, y: 0 },
 	hover: {
