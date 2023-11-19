@@ -18,7 +18,7 @@ import {
 	Nav,
 	navVariants,
 	Search,
-} from "../styles/headerStyle";
+} from "../styles/HeaderStyle";
 
 export default function Header() {
 	const [searchOpen, setSearchOpen] = useState(false);
