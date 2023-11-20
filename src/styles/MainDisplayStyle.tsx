@@ -49,7 +49,7 @@ export const MoreInfoButton = styled(motion.div)`
 	width: 200px;
 	height: 60px;
 	border-radius: 5px;
-	background-color: #141414;
+	background-color: rgba(255, 255, 255, 0.2);
 	color: ${(props) => props.theme.white.dakrer};
 	display: flex;
 	align-items: center;

@@ -13,16 +13,16 @@ import MainDisplay from "./MainDisplay";
 import Slide from "../components/Slide";
 import MovieDetail from "../components/MovieDetail";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
 	background-color: transparent;
 `;
-const Loader = styled.div`
+export const Loader = styled.div`
 	height: 20vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 `;
-const SlideContainer = styled.div`
+export const SlideContainer = styled.div`
 	width: 100%;
 	height: 300px;
 `;
@@ -69,9 +69,7 @@ export default function Home() {
 				<Loader>Loading....</Loader>
 			) : (
 				<>
-					<AnimatePresence>
-						<MainDisplay data={trendingNow}></MainDisplay>
-					</AnimatePresence>
+					<MainDisplay data={trendingNow}></MainDisplay>
 
 					<SlideContainer>
 						<Slide
@@ -106,8 +104,8 @@ export default function Home() {
 						{bigMovieMatch ? (
 							<>
 								<MovieDetail
-									bigMovieMatch={bigMovieMatch}
-									clickedMovie={clickedMovie}
+									bigMatch={bigMovieMatch}
+									clickedBox={clickedMovie}
 								></MovieDetail>
 							</>
 						) : null}

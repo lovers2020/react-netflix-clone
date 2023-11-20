@@ -9,12 +9,14 @@ import {
 	boxVariants,
 	infoVariants,
 	offset,
+	rowVariants,
 } from "../styles/SlideStyle";
 import { makeImagePath, useWindowDimensions } from "../utils";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Slide({ data, title, category }: any) {
+	const location = useLocation();
 	const navigate = useNavigate();
 	const width = useWindowDimensions();
 	const [leaving, setLeaving] = useState(false);
@@ -40,8 +42,11 @@ export default function Slide({ data, title, category }: any) {
 			setSlideDir(-1);
 		}
 	};
+	let navigateId = "";
 	const onBoxClicked = (movieId: string) => {
-		navigate(`/movies/${movieId}`);
+		if (location.pathname.slice(1, 3) === "tv") navigateId = "tv";
+		else navigateId = "movies";
+		navigate(`/${navigateId}/${movieId}`);
 	};
 	return (
 		<Slider>
@@ -67,36 +72,45 @@ export default function Slide({ data, title, category }: any) {
 			>
 				&rarr;
 			</PrevNextBtn>
+
+			<SliderTitle>{title}</SliderTitle>
 			<AnimatePresence initial={false} onExitComplete={toggleLeaving}>
-				<SliderTitle>{title}</SliderTitle>
 				<Row
 					key={index}
-					initial={{ x: width * slideDir + 5 }}
-					animate={{ x: 0 }}
-					exit={{ x: -width * slideDir - 5 }}
+					custom={slideDir}
+					variants={rowVariants}
+					initial="hidden"
+					animate="visible"
+					exit="exit"
 					transition={{ type: "tween", duration: 0.6 }}
 				>
 					{data?.results
 						.slice(1)
 						.slice(offset * index, offset * index + offset)
-						.map((movie: any) => (
+						.map((current: any) => (
 							<Box
-								layoutId={category + movie.id}
-								key={category + movie.id}
 								variants={boxVariants}
+								layoutId={category + current.id + ""}
+								key={category + current.id + ""}
 								initial="normal"
 								whileHover="hover"
 								transition={{ type: "tween" }}
 								onClick={() =>
-									onBoxClicked(category + movie.id)
+									onBoxClicked(category + current.id)
 								}
 								bgphoto={makeImagePath(
-									movie?.backdrop_path,
+									current.backdrop_path
+										? current.backdrop_path
+										: current.poster_path,
 									"w500"
 								)}
 							>
 								<Info variants={infoVariants}>
-									<h4>{movie.title}</h4>
+									<h4>
+										{current.title
+											? current.title
+											: current.name}
+									</h4>
 								</Info>
 							</Box>
 						))}

@@ -7,20 +7,28 @@ import {
 	PlayButton,
 	Title,
 } from "../styles/MainDisplayStyle";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
 export default function MainDisplay({ data }: any) {
-	const movieId = data.results[0].id;
+	const location = useLocation();
+	const mainTitle = data.results[0].title;
+	const pathId = data.results[0].id;
+
 	const navigate = useNavigate();
-	const moreInfoClicked = () => {
-		navigate(`/movies/trd${movieId}`);
-	};
+	const nowPathId =
+		location.pathname === "/tv"
+			? `/tv/top${pathId}`
+			: `/movies/trd${pathId}`;
+	const moreInfoClicked = () => navigate(nowPathId);
 	return (
 		<>
 			<Banner
 				bgphoto={makeImagePath(data?.results[0].backdrop_path || "")}
 			>
-				<Title>{data?.results[0].title}</Title>
+				<Title>
+					{mainTitle ? data?.results[0].title : data?.results[0].name}
+				</Title>
 				<Overview>{data?.results[0].overview}</Overview>
 				<Buttons>
 					<PlayButton
@@ -43,11 +51,10 @@ export default function MainDisplay({ data }: any) {
 						<span>Play</span>
 					</PlayButton>
 					<MoreInfoButton
-						layoutId={"trd" + movieId}
 						onClick={moreInfoClicked}
 						whileHover={{
 							cursor: "pointer",
-							backgroundColor: "rgba(73, 74, 68, 0.6)",
+							backgroundColor: "#141414",
 						}}
 					>
 						<svg

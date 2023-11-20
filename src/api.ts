@@ -74,3 +74,53 @@ export async function getMovieVideo(id: number) {
 	const jsonParse = await response.json().catch((err) => console.error(err));
 	return jsonParse;
 }
+
+export async function getTvAiringToday() {
+	const response = await fetch(
+		`https://api.themoviedb.org/3/tv/airing_today?/videos?language=en-US`,
+		options
+	);
+	const jsonParse = await response.json().catch((err) => console.error(err));
+	return jsonParse;
+}
+export async function getTvOnTheAir() {
+	const response = await fetch(
+		`https://api.themoviedb.org/3/tv/on_the_air?/videos?language=en-US&page=2`,
+		options
+	);
+	const jsonParse = await response.json().catch((err) => console.error(err));
+	return jsonParse;
+}
+export async function getTvPopular() {
+	const response = await fetch(
+		`https://api.themoviedb.org/3/tv/popular?/videos?language=en-US`,
+		options
+	);
+	const jsonParse = await response.json().catch((err) => console.error(err));
+	return jsonParse;
+}
+export async function getTvTopRated() {
+	const response = await fetch(
+		`https://api.themoviedb.org/3/tv/top_rated?/videos?language=en-US`,
+		options
+	);
+	const jsonParse = await response.json().catch((err) => console.error(err));
+	return jsonParse;
+}
+export async function getTvVideo(id: number) {
+	const response = await fetch(
+		`https://api.themoviedb.org/3/tv/${id}/videos?language=en-US`,
+		options
+	);
+	const jsonParse = await response.json().catch((err) => console.error(err));
+	return jsonParse;
+}
+
+export async function getTvDetail(id: number) {
+	const response = await fetch(
+		`https://api.themoviedb.org/3/tv/${id}?language=en-US`,
+		options
+	);
+	const jsonParse = await response.json().catch((err) => console.error(err));
+	return jsonParse;
+}

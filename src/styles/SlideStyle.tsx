@@ -87,4 +87,16 @@ export const infoVariants = {
 		transition: { delay: 0.3, duration: 0.3, type: "tween" },
 	},
 };
+export const rowVariants = {
+	hidden: (slideDir: number) => ({
+		x: window.outerWidth * slideDir + 5,
+	}),
+	visible: {
+		x: 0,
+	},
+	exit: (slideDir: number) => ({
+		x: -window.outerWidth * slideDir - 5,
+	}),
+};
+
 export const offset = 6;
