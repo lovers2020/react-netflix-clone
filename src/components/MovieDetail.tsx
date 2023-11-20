@@ -1,11 +1,16 @@
 import { useQuery } from "react-query";
-import { getMovieDetail, getMovies } from "../api";
+import { getMovieDetail, getMovieVideo } from "../api";
 import {
+	DetailContiainter,
+	DetailContiainterLeft,
+	DetailContiainterRight,
 	DetailCover,
 	DetailMatch,
 	DetailMovie,
 	DetailOverView,
 	DetailTitle,
+	InfoDetail,
+	InfoTitle,
 	Overlay,
 } from "../styles/MovieDetailStyle";
 import { makeImagePath } from "../utils";
@@ -17,12 +22,24 @@ interface IMovieDetails {
 	runtime: number;
 	vote_average: number;
 }
-export default function MovieClicked({ bigMovieMatch, clickedMovie }: any) {
+interface IVideoDetails {
+	results: [{ type: string; key: string }];
+}
+export default function MovieDetail({ bigMovieMatch, clickedMovie }: any) {
 	const id = clickedMovie?.id;
-	const { data: genre, isLoading: genreisLoading } = useQuery<IMovieDetails>(
+	const { data: genre, isLoading: genreIsLoading } = useQuery<IMovieDetails>(
 		"genres",
 		() => getMovieDetail(id)
 	);
+	const { data: video, isLoading: getVideoIsLoading } =
+		useQuery<IVideoDetails>("videoUrl", () => getMovieVideo(id));
+
+	function getVideoUrl() {
+		const videoId = video?.results.find(
+			(current) => current.type === "Teaser"
+		);
+		return videoId ? videoId.key : video?.results[0].key;
+	}
 	function getMovieGenres(data: any) {
 		return data.genres.map((genre: any) => genre.name).join(", ");
 	}
@@ -49,37 +66,53 @@ export default function MovieClicked({ bigMovieMatch, clickedMovie }: any) {
 							}}
 						></DetailCover>
 						<DetailTitle>{clickedMovie.title}</DetailTitle>
-						<div style={{ display: "flex" }}>
-							<div style={{ width: "60%" }}>
+						<DetailContiainter>
+							<DetailContiainterLeft>
 								<DetailMatch>
 									{Math.round(clickedMovie.vote_average * 10)}
 									% Match
 								</DetailMatch>
-
 								<DetailOverView>
 									{clickedMovie.overview}
 								</DetailOverView>
-							</div>
-							<div
-								style={{
-									paddingLeft: "2rem",
-									display: "flex",
-								}}
-							>
-								<span
-									style={{
-										color: "rgba(255,255,255,0.5)",
-									}}
-								>
+							</DetailContiainterLeft>
+							<DetailContiainterRight>
+								<InfoTitle>
 									Genres:
-								</span>
-								<span>
-									{genreisLoading
-										? "Loading..."
-										: getMovieGenres(genre)}
-								</span>
-							</div>
-						</div>
+									<InfoDetail>
+										{genreIsLoading
+											? "Loading..."
+											: getMovieGenres(genre)}
+									</InfoDetail>
+								</InfoTitle>
+								<InfoTitle>
+									release_date:
+									<InfoDetail>
+										{genre?.release_date}
+									</InfoDetail>
+								</InfoTitle>
+								<InfoTitle>
+									Runtime:
+									<InfoDetail>
+										{genre?.runtime} minutes
+									</InfoDetail>
+								</InfoTitle>
+								<InfoTitle>
+									Homepage:
+									<a
+										href={genre?.homepage}
+										target="blank"
+										style={{
+											color: "white",
+											fontWeight: "500",
+											marginLeft: "5px",
+										}}
+									>
+										{genre?.homepage}
+									</a>
+								</InfoTitle>
+							</DetailContiainterRight>
+						</DetailContiainter>
 					</>
 				)}
 			</DetailMovie>

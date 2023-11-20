@@ -40,7 +40,6 @@ export const PlayButton = styled(motion.div)`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
 	span {
 		margin-left: 10px;
 	}
@@ -55,7 +54,6 @@ export const MoreInfoButton = styled(motion.div)`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
 	span {
 		margin-left: 10px;
 	}

@@ -11,7 +11,7 @@ import { AnimatePresence } from "framer-motion";
 import { useMatch } from "react-router-dom";
 import MainDisplay from "./MainDisplay";
 import Slide from "../components/Slide";
-import MovieClicked from "../components/MovieDetail";
+import MovieDetail from "../components/MovieDetail";
 
 const Wrapper = styled.div`
 	background-color: transparent;
@@ -69,7 +69,10 @@ export default function Home() {
 				<Loader>Loading....</Loader>
 			) : (
 				<>
-					<MainDisplay data={trendingNow}></MainDisplay>
+					<AnimatePresence>
+						<MainDisplay data={trendingNow}></MainDisplay>
+					</AnimatePresence>
+
 					<SlideContainer>
 						<Slide
 							data={trendingNow}
@@ -102,10 +105,10 @@ export default function Home() {
 					<AnimatePresence>
 						{bigMovieMatch ? (
 							<>
-								<MovieClicked
+								<MovieDetail
 									bigMovieMatch={bigMovieMatch}
 									clickedMovie={clickedMovie}
-								></MovieClicked>
+								></MovieDetail>
 							</>
 						) : null}
 					</AnimatePresence>

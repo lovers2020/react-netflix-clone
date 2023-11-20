@@ -9,12 +9,6 @@ import {
 } from "../styles/MainDisplayStyle";
 import { useNavigate } from "react-router-dom";
 
-interface IMainDisplay {
-	bgImagePath?: string;
-	title?: string;
-	overview?: string;
-}
-
 export default function MainDisplay({ data }: any) {
 	const movieId = data.results[0].id;
 	const navigate = useNavigate();
@@ -49,7 +43,7 @@ export default function MainDisplay({ data }: any) {
 						<span>Play</span>
 					</PlayButton>
 					<MoreInfoButton
-						layoutId={movieId}
+						layoutId={"trd" + movieId}
 						onClick={moreInfoClicked}
 						whileHover={{
 							cursor: "pointer",
