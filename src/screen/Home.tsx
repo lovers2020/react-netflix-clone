@@ -11,18 +11,18 @@ import { AnimatePresence } from "framer-motion";
 import { useMatch } from "react-router-dom";
 import MainDisplay from "./MainDisplay";
 import Slide from "../components/Slide";
-import MovieClicked from "../components/MovieDetail";
+import MovieDetail from "../components/MovieDetail";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
 	background-color: transparent;
 `;
-const Loader = styled.div`
+export const Loader = styled.div`
 	height: 20vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 `;
-const SlideContainer = styled.div`
+export const SlideContainer = styled.div`
 	width: 100%;
 	height: 300px;
 `;
@@ -39,7 +39,6 @@ export default function Home() {
 		useQuery<IMovieResult>("topRated", getTopRated);
 	const { data: upComing, isLoading: upComingLoading } =
 		useQuery<IMovieResult>("upComing", getUpComing);
-	console.log(topRated);
 	// const clickedMovie =
 	//     bigMovieMatch?.params.movieId &&
 	//     trendingMovies?.results.find(
@@ -70,11 +69,8 @@ export default function Home() {
 				<Loader>Loading....</Loader>
 			) : (
 				<>
-					<MainDisplay
-						bgImagePath={trendingNow?.results[0].backdrop_path}
-						title={trendingNow?.results[0].title}
-						overview={trendingNow?.results[0].overview}
-					></MainDisplay>
+					<MainDisplay data={trendingNow}></MainDisplay>
+
 					<SlideContainer>
 						<Slide
 							data={trendingNow}
@@ -107,10 +103,10 @@ export default function Home() {
 					<AnimatePresence>
 						{bigMovieMatch ? (
 							<>
-								<MovieClicked
-									bigMovieMatch={bigMovieMatch}
-									clickedMovie={clickedMovie}
-								></MovieClicked>
+								<MovieDetail
+									bigMatch={bigMovieMatch}
+									clickedBox={clickedMovie}
+								></MovieDetail>
 							</>
 						) : null}
 					</AnimatePresence>

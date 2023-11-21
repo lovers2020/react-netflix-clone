@@ -27,17 +27,18 @@ export const DetailMovie = styled(motion.div)`
 `;
 export const DetailCover = styled.div`
 	width: 100%;
-	height: 40%;
+	height: 45%;
 	background-size: cover;
 	background-position: center center;
 `;
 export const DetailTitle = styled.h3`
 	color: ${(props) => props.theme.white.lighter};
-	padding: 20px;
-	font-size: 34px;
+	padding: 20px 20px 20px 40px;
+	font-size: 38px;
+	font-weight: 400;
 `;
 export const DetailOverView = styled.p`
-	width: 50%;
+	font-size: 20px;
 	padding: 20px;
 	color: ${(props) => props.theme.white.lighter};
 `;
@@ -45,4 +46,24 @@ export const DetailMatch = styled.span`
 	padding: 0 20px;
 	color: #3db45b;
 	font-weight: 700;
+`;
+export const DetailContiainter = styled.div`
+	display: flex;
+	padding: 0 20px;
+`;
+export const DetailContiainterLeft = styled.div`
+	width: 60%;
+`;
+export const DetailContiainterRight = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding-left: 2rem;
+`;
+export const InfoTitle = styled.span`
+	color: rgba(255, 255, 255, 0.5);
+	margin: 10px 0;
+`;
+export const InfoDetail = styled.span`
+	color: white;
+	margin-left: 5px;
 `;
