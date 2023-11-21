@@ -51,29 +51,33 @@ export default function Slide({ data, title, category }: any) {
 	};
 	return (
 		<Slider>
-			<AnimatePresence initial={false} onExitComplete={toggleLeaving}>
-				<PrevNextBtn
-					id="slideBtn"
-					style={{
-						top: "60px",
-						left: "15px",
-					}}
-					onClick={decreaseIndex}
-				>
-					&larr;
-				</PrevNextBtn>
-				<PrevNextBtn
-					id="slideBtn"
-					onClick={increaseIndex}
-					style={{
-						top: "60px",
-						right: "15px",
-					}}
-				>
-					&rarr;
-				</PrevNextBtn>
+			<SliderTitle>{title}</SliderTitle>
+			<PrevNextBtn
+				id="slideBtn"
+				style={{
+					top: "60px",
+					left: "15px",
+				}}
+				onClick={decreaseIndex}
+			>
+				&larr;
+			</PrevNextBtn>
+			<PrevNextBtn
+				id="slideBtn"
+				onClick={increaseIndex}
+				style={{
+					top: "60px",
+					right: "15px",
+				}}
+			>
+				&rarr;
+			</PrevNextBtn>
 
-				<SliderTitle>{title}</SliderTitle>
+			<AnimatePresence
+				initial={false}
+				onExitComplete={toggleLeaving}
+				custom={slideDir}
+			>
 				<Row
 					key={index}
 					custom={slideDir}

@@ -78,6 +78,7 @@ export const boxVariants = {
 		scale: 1.2,
 		y: -50,
 		transition: { delay: 0.3, duration: 0.3, type: "tween" },
+		zIndex: 2,
 	},
 };
 export const infoVariants = {
