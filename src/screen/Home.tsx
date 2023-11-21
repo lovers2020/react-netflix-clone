@@ -30,15 +30,15 @@ export const SlideContainer = styled.div`
 export default function Home() {
 	const bigMovieMatch = useMatch("/movies/:movieId");
 	const { data: trendingNow, isLoading: trendingNowLoading } =
-		useQuery<IMovieResult>("trend", () => getMovies());
+		useQuery<IMovieResult>("trend", getMovies);
 	const { data: popular, isLoading: popularLoading } = useQuery<IMovieResult>(
 		"popular",
-		() => getPopular()
+		getPopular
 	);
 	const { data: topRated, isLoading: topRatedLoading } =
-		useQuery<IMovieResult>("topRated", () => getTopRated());
+		useQuery<IMovieResult>("topRated", getTopRated);
 	const { data: upComing, isLoading: upComingLoading } =
-		useQuery<IMovieResult>("upComing", () => getUpComing());
+		useQuery<IMovieResult>("upComing", getUpComing);
 	// const clickedMovie =
 	//     bigMovieMatch?.params.movieId &&
 	//     trendingMovies?.results.find(

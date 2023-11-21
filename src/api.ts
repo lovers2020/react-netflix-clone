@@ -14,6 +14,10 @@ interface IMovie {
 }
 
 export interface IMovieResult {
+	dates: {
+		maximum: string;
+		minimum: string;
+	};
 	page: number;
 	results: IMovie[];
 	total_pages: number;
@@ -26,29 +30,24 @@ const options = {
 		Authorization: API_KEY,
 	},
 };
-
-export async function getMovies() {
-	const response = await fetch(
+export function getMovies() {
+	return fetch(
 		"https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
 		options
-	);
-	const jsonParse = await response.json().catch((err) => console.error(err));
-	return jsonParse;
+	).then((response) => response.json());
 }
-export async function getPopular() {
-	const response = await fetch(
+export function getPopular() {
+	return fetch(
 		"https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
 		options
-	);
-	const jsonParse = await response.json().catch((err) => console.error(err));
-	return jsonParse;
+	).then((response) => response.json());
 }
 export async function getUpComing() {
 	const response = await fetch(
 		"https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
 		options
 	);
-	const jsonParse = await response.json().catch((err) => console.error(err));
+	const jsonParse = await response.json();
 	return jsonParse;
 }
 export async function getTopRated() {
@@ -56,7 +55,7 @@ export async function getTopRated() {
 		"https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
 		options
 	);
-	const jsonParse = await response.json().catch((err) => console.error(err));
+	const jsonParse = await response.json();
 	return jsonParse;
 }
 export async function getMovieDetail(id: number) {
@@ -64,7 +63,7 @@ export async function getMovieDetail(id: number) {
 		`https://api.themoviedb.org/3/movie/${id}?language=en-US`,
 		options
 	);
-	const jsonParse = await response.json().catch((err) => console.error(err));
+	const jsonParse = await response.json();
 	return jsonParse;
 }
 export async function getMovieVideo(id: number) {
@@ -72,7 +71,7 @@ export async function getMovieVideo(id: number) {
 		`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
 		options
 	);
-	const jsonParse = await response.json().catch((err) => console.error(err));
+	const jsonParse = await response.json();
 	return jsonParse;
 }
 
@@ -81,7 +80,7 @@ export async function getTvAiringToday() {
 		`https://api.themoviedb.org/3/tv/airing_today?/videos?language=en-US&page=1`,
 		options
 	);
-	const jsonParse = await response.json().catch((err) => console.error(err));
+	const jsonParse = await response.json();
 	return jsonParse;
 }
 export async function getTvOnTheAir() {
@@ -89,7 +88,7 @@ export async function getTvOnTheAir() {
 		`https://api.themoviedb.org/3/tv/on_the_air?/videos?language=en-US&page=2`,
 		options
 	);
-	const jsonParse = await response.json().catch((err) => console.error(err));
+	const jsonParse = await response.json();
 	return jsonParse;
 }
 export async function getTvPopular() {
@@ -97,7 +96,7 @@ export async function getTvPopular() {
 		`https://api.themoviedb.org/3/tv/popular?/videos?language=en-US&page=1`,
 		options
 	);
-	const jsonParse = await response.json().catch((err) => console.error(err));
+	const jsonParse = await response.json();
 	return jsonParse;
 }
 export async function getTvTopRated() {
@@ -105,7 +104,7 @@ export async function getTvTopRated() {
 		`https://api.themoviedb.org/3/tv/top_rated?/videos?language=en-US&page=1`,
 		options
 	);
-	const jsonParse = await response.json().catch((err) => console.error(err));
+	const jsonParse = await response.json();
 	return jsonParse;
 }
 export async function getTvVideo(id: number) {
@@ -113,7 +112,7 @@ export async function getTvVideo(id: number) {
 		`https://api.themoviedb.org/3/tv/${id}/videos?language=en-US`,
 		options
 	);
-	const jsonParse = await response.json().catch((err) => console.error(err));
+	const jsonParse = await response.json();
 	return jsonParse;
 }
 
@@ -122,6 +121,6 @@ export async function getTvDetail(id: number) {
 		`https://api.themoviedb.org/3/tv/${id}?language=en-US`,
 		options
 	);
-	const jsonParse = await response.json().catch((err) => console.error(err));
+	const jsonParse = await response.json();
 	return jsonParse;
 }

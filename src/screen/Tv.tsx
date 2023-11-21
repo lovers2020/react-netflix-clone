@@ -16,15 +16,15 @@ import { Loader, SlideContainer, Wrapper } from "./Home";
 export default function Tv() {
 	const bigTvMatch = useMatch("/tv/:tvId");
 	const { data: airingToday, isLoading: airingTodayLoading } =
-		useQuery<IMovieResult>("airing", () => getTvAiringToday());
+		useQuery<IMovieResult>("Airing", () => getTvAiringToday());
 	const { data: onTheAir, isLoading: onTheAirLoading } =
 		useQuery<IMovieResult>("onTheAir", () => getTvOnTheAir());
 	const { data: popular, isLoading: popularLoading } = useQuery<IMovieResult>(
-		"popular",
+		"TvPopular",
 		() => getTvPopular()
 	);
 	const { data: topRated, isLoading: topRatedLoading } =
-		useQuery<IMovieResult>("topRated", () => getTvTopRated());
+		useQuery<IMovieResult>("TvTopRated", () => getTvTopRated());
 	console.log(topRated);
 
 	let clickedMovie = "";
