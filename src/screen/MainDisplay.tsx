@@ -8,28 +8,33 @@ import {
 	Title,
 } from "../styles/MainDisplayStyle";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+interface IDisplay {
+	id: string;
+	category: string;
+	title?: string;
+	name?: string;
+	overview?: string;
+	bgIamgePath?: string;
+}
 
-export default function MainDisplay({ data }: any) {
+export default function MainDisplay({
+	id,
+	category,
+	title,
+	name,
+	overview,
+	bgIamgePath,
+}: IDisplay) {
 	const location = useLocation();
-	const mainTitle = data.results[0].title;
-	const pathId = data.results[0].id;
-
 	const navigate = useNavigate();
 	const nowPathId =
-		location.pathname === "/tv"
-			? `/tv/top${pathId}`
-			: `/movies/trd${pathId}`;
+		location.pathname === "/tv" ? `/tv/tv_top${id}` : `/movies/pop${id}`;
 	const moreInfoClicked = () => navigate(nowPathId);
 	return (
 		<>
-			<Banner
-				bgphoto={makeImagePath(data?.results[0].backdrop_path || "")}
-			>
-				<Title>
-					{mainTitle ? data?.results[0].title : data?.results[0].name}
-				</Title>
-				<Overview>{data?.results[0].overview}</Overview>
+			<Banner bgphoto={makeImagePath(bgIamgePath || "")}>
+				<Title>{title ? title : name}</Title>
+				<Overview>{overview}</Overview>
 				<Buttons>
 					<PlayButton
 						whileHover={{ cursor: "pointer", opacity: 0.8 }}

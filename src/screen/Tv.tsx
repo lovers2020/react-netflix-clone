@@ -16,32 +16,34 @@ import { Loader, SlideContainer, Wrapper } from "./Home";
 export default function Tv() {
 	const bigTvMatch = useMatch("/tv/:tvId");
 	const { data: airingToday, isLoading: airingTodayLoading } =
-		useQuery<IMovieResult>("airing", getTvAiringToday);
+		useQuery<IMovieResult>("airing", () => getTvAiringToday());
 	const { data: onTheAir, isLoading: onTheAirLoading } =
-		useQuery<IMovieResult>("onTheAir", getTvOnTheAir);
+		useQuery<IMovieResult>("onTheAir", () => getTvOnTheAir());
 	const { data: popular, isLoading: popularLoading } = useQuery<IMovieResult>(
 		"popular",
-		getTvPopular
+		() => getTvPopular()
 	);
 	const { data: topRated, isLoading: topRatedLoading } =
-		useQuery<IMovieResult>("topRated", getTvTopRated);
+		useQuery<IMovieResult>("topRated", () => getTvTopRated());
+	console.log(topRated);
 
 	let clickedMovie = "";
-	function isClickedMovie() {
+	function isClickedTv() {
 		if (bigTvMatch?.params.tvId) {
-			const category = bigTvMatch?.params.tvId.slice(0, 3);
-			let movies: any = "";
-			if (category === "air") movies = airingToday;
-			else if (category === "pop") movies = popular;
-			else if (category === "top") movies = topRated;
-			else movies = onTheAir;
-			clickedMovie = movies?.results.find(
-				(movie: any) =>
-					movie.id + "" === bigTvMatch?.params?.tvId?.slice(3)
-			);
+			const category = bigTvMatch?.params.tvId.slice(3, 6);
+			let tvs: any = "";
+			if (category === "air") tvs = airingToday;
+			else if (category === "pop") tvs = popular;
+			else if (category === "top") tvs = topRated;
+			else tvs = onTheAir;
+
+			clickedMovie = tvs?.results.find((movie: any) => {
+				return movie.id + "" === bigTvMatch?.params?.tvId?.slice(6);
+			});
 		}
 	}
-	isClickedMovie();
+	isClickedTv();
+	console.log(topRated);
 
 	return (
 		<Wrapper>
@@ -52,34 +54,40 @@ export default function Tv() {
 				<Loader>Loading....</Loader>
 			) : (
 				<>
-					<MainDisplay data={topRated}></MainDisplay>
+					<MainDisplay
+						id={topRated?.results[0].id + ""}
+						category="tv_top"
+						name={topRated?.results[0].name}
+						overview={topRated?.results[0].overview}
+						bgIamgePath={topRated?.results[0].backdrop_path}
+					></MainDisplay>
 
 					<SlideContainer>
 						<Slide
 							data={airingToday}
 							title="Airing Today"
-							category="air"
+							category="tv_air"
 						></Slide>
 					</SlideContainer>
 					<SlideContainer>
 						<Slide
 							data={onTheAir}
 							title="On The Air"
-							category="ont"
+							category="tv_ont"
 						></Slide>
 					</SlideContainer>
 					<SlideContainer>
 						<Slide
 							data={popular}
 							title="Popular"
-							category="pop"
+							category="tv_pop"
 						></Slide>
 					</SlideContainer>
 					<SlideContainer>
 						<Slide
 							data={topRated}
 							title="Top Rated"
-							category="top"
+							category="tv_top"
 						></Slide>
 					</SlideContainer>
 
