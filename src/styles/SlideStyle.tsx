@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Slider = styled.div`
 	position: relative;
-	top: -100px;
+	top: -150px;
 	&:hover {
 		#slideBtn {
 			opacity: 1;

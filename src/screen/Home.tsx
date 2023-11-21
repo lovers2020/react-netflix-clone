@@ -30,15 +30,15 @@ export const SlideContainer = styled.div`
 export default function Home() {
 	const bigMovieMatch = useMatch("/movies/:movieId");
 	const { data: trendingNow, isLoading: trendingNowLoading } =
-		useQuery<IMovieResult>("trend", getMovies);
+		useQuery<IMovieResult>("trend", () => getMovies());
 	const { data: popular, isLoading: popularLoading } = useQuery<IMovieResult>(
 		"popular",
-		getPopular
+		() => getPopular()
 	);
 	const { data: topRated, isLoading: topRatedLoading } =
-		useQuery<IMovieResult>("topRated", getTopRated);
+		useQuery<IMovieResult>("topRated", () => getTopRated());
 	const { data: upComing, isLoading: upComingLoading } =
-		useQuery<IMovieResult>("upComing", getUpComing);
+		useQuery<IMovieResult>("upComing", () => getUpComing());
 	// const clickedMovie =
 	//     bigMovieMatch?.params.movieId &&
 	//     trendingMovies?.results.find(
@@ -69,7 +69,13 @@ export default function Home() {
 				<Loader>Loading....</Loader>
 			) : (
 				<>
-					<MainDisplay data={trendingNow}></MainDisplay>
+					<MainDisplay
+						id={popular?.results[0].id + ""}
+						category="top"
+						title={popular?.results[0].title}
+						overview={popular?.results[0].overview}
+						bgIamgePath={popular?.results[0].backdrop_path}
+					></MainDisplay>
 
 					<SlideContainer>
 						<Slide

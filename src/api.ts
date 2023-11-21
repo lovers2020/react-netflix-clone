@@ -5,6 +5,7 @@ interface IMovie {
 	backdrop_path: string;
 	poster_path: string;
 	title: string;
+	name: string;
 	overview: string;
 	release_date: string;
 	id: number;
@@ -77,7 +78,7 @@ export async function getMovieVideo(id: number) {
 
 export async function getTvAiringToday() {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/tv/airing_today?/videos?language=en-US`,
+		`https://api.themoviedb.org/3/tv/airing_today?/videos?language=en-US&page=1`,
 		options
 	);
 	const jsonParse = await response.json().catch((err) => console.error(err));
@@ -93,7 +94,7 @@ export async function getTvOnTheAir() {
 }
 export async function getTvPopular() {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/tv/popular?/videos?language=en-US`,
+		`https://api.themoviedb.org/3/tv/popular?/videos?language=en-US&page=1`,
 		options
 	);
 	const jsonParse = await response.json().catch((err) => console.error(err));
@@ -101,7 +102,7 @@ export async function getTvPopular() {
 }
 export async function getTvTopRated() {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/tv/top_rated?/videos?language=en-US`,
+		`https://api.themoviedb.org/3/tv/top_rated?/videos?language=en-US&page=1`,
 		options
 	);
 	const jsonParse = await response.json().catch((err) => console.error(err));

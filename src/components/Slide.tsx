@@ -11,18 +11,16 @@ import {
 	offset,
 	rowVariants,
 } from "../styles/SlideStyle";
-import { makeImagePath, useWindowDimensions } from "../utils";
+import { makeImagePath } from "../utils";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Slide({ data, title, category }: any) {
 	const location = useLocation();
 	const navigate = useNavigate();
-	const width = useWindowDimensions();
 	const [leaving, setLeaving] = useState(false);
 	const [index, setIndex] = useState(0);
 	const [slideDir, setSlideDir] = useState(1);
-
 	const toggleLeaving = () => setLeaving((prev) => !prev);
 	const increaseIndex = () => {
 		if (data) {
@@ -42,11 +40,12 @@ export default function Slide({ data, title, category }: any) {
 			setSlideDir(-1);
 		}
 	};
+
 	let navigateId = "";
-	const onBoxClicked = (movieId: string) => {
+	const onBoxClicked = (Id: string) => {
 		if (location.pathname.slice(1, 3) === "tv") navigateId = "tv";
 		else navigateId = "movies";
-		navigate(`/${navigateId}/${movieId}`);
+		navigate(`/${navigateId}/${Id}`);
 	};
 	return (
 		<Slider>
@@ -91,7 +90,7 @@ export default function Slide({ data, title, category }: any) {
 							<Box
 								variants={boxVariants}
 								layoutId={category + current.id + ""}
-								key={category + current.id + ""}
+								key={category + current.id}
 								initial="normal"
 								whileHover="hover"
 								transition={{ type: "tween" }}

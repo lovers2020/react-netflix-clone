@@ -29,11 +29,11 @@ interface IVideoDetails {
 }
 
 export default function MovieDetail({ bigMatch, clickedBox }: any) {
+	console.log(clickedBox);
 	const navigate = useNavigate();
 	const onOverlayClick = () => navigate(-1);
 	const id = clickedBox.id;
 	const isMovie = bigMatch.params.movieId ? true : false;
-	console.log(isMovie);
 	const { data: genre, isLoading: genreIsLoading } = useQuery<IMovieDetails>(
 		"genres",
 		() => getMovieDetail(id)
@@ -50,7 +50,7 @@ export default function MovieDetail({ bigMatch, clickedBox }: any) {
 		return getId ? getId.key : data?.results[0].key;
 	}
 	let videoId = "";
-	if (isMovie) videoId = getVideoId(movieVideo);
+	if (isMovie && !getVideoIsLoading) videoId = getVideoId(movieVideo);
 
 	function getMovieGenres(data: any) {
 		return data.genres?.map((genre: any) => genre.name).join(", ");
