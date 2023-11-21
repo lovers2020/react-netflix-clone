@@ -14,6 +14,9 @@ import Slide from "../components/Slide";
 import MovieDetail from "../components/MovieDetail";
 
 export const Wrapper = styled.div`
+	position: relative;
+	width: 100%;
+	height: 180vh;
 	background-color: transparent;
 `;
 export const Loader = styled.div`
