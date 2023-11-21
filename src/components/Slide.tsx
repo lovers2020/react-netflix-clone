@@ -25,8 +25,8 @@ export default function Slide({ data, title, category }: any) {
 	const increaseIndex = () => {
 		if (data) {
 			if (leaving) return;
-			const totlaMovies = data?.results.length - 1;
-			const maxIndex = Math.floor(totlaMovies / offset) - 1;
+			const totalMovies = data?.results.length;
+			const maxIndex = Math.floor(totalMovies / offset) - 1;
 			setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
 			setLeaving(true);
 			setSlideDir(1);
@@ -35,7 +35,9 @@ export default function Slide({ data, title, category }: any) {
 	const decreaseIndex = () => {
 		if (data) {
 			if (leaving) return;
-			setIndex((prev) => prev - 1);
+			const totalMovies = data?.results.length;
+			const maxIndex = Math.floor(totalMovies / offset) - 1;
+			setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
 			setLeaving(true);
 			setSlideDir(-1);
 		}
@@ -49,31 +51,29 @@ export default function Slide({ data, title, category }: any) {
 	};
 	return (
 		<Slider>
-			{index !== 0 ? (
+			<AnimatePresence initial={false} onExitComplete={toggleLeaving}>
 				<PrevNextBtn
 					id="slideBtn"
-					onClick={decreaseIndex}
 					style={{
 						top: "60px",
 						left: "15px",
 					}}
+					onClick={decreaseIndex}
 				>
 					&larr;
 				</PrevNextBtn>
-			) : null}
-			<PrevNextBtn
-				id="slideBtn"
-				onClick={increaseIndex}
-				style={{
-					top: "60px",
-					right: "15px",
-				}}
-			>
-				&rarr;
-			</PrevNextBtn>
+				<PrevNextBtn
+					id="slideBtn"
+					onClick={increaseIndex}
+					style={{
+						top: "60px",
+						right: "15px",
+					}}
+				>
+					&rarr;
+				</PrevNextBtn>
 
-			<SliderTitle>{title}</SliderTitle>
-			<AnimatePresence initial={false} onExitComplete={toggleLeaving}>
+				<SliderTitle>{title}</SliderTitle>
 				<Row
 					key={index}
 					custom={slideDir}
