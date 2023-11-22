@@ -8,6 +8,7 @@ import { reset } from "styled-reset";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/router";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const GlobalStyle = createGlobalStyle`
     ${reset} 
@@ -20,7 +21,8 @@ const GlobalStyle = createGlobalStyle`
         line-height: 1.2;
         background-color: #141414;
         color: ${(props) => props.theme.white.dakrer};
-        height: 200vh;
+        height: 100%;
+        position: relative;
         overflow-x: hidden;     
     }
     * {

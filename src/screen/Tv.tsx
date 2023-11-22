@@ -11,7 +11,7 @@ import { useMatch } from "react-router-dom";
 import MainDisplay from "./MainDisplay";
 import Slide from "../components/Slide";
 import MovieDetail from "../components/MovieDetail";
-import { Loader, SlideContainer, Wrapper } from "./Home";
+import { Loader, SlideContainer, Wrapper } from "../styles/HomeStyle";
 
 export default function Tv() {
 	const bigTvMatch = useMatch("/tv/:tvId");
@@ -25,7 +25,6 @@ export default function Tv() {
 	);
 	const { data: topRated, isLoading: topRatedLoading } =
 		useQuery<IMovieResult>("TvTopRated", () => getTvTopRated());
-	console.log(topRated);
 
 	let clickedMovie = "";
 	function isClickedTv() {
@@ -43,7 +42,6 @@ export default function Tv() {
 		}
 	}
 	isClickedTv();
-	console.log(topRated);
 
 	return (
 		<Wrapper>

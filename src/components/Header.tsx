@@ -48,8 +48,9 @@ export default function Header() {
 		}
 	});
 	const navigate = useNavigate();
-	const { register, handleSubmit } = useForm<IForm>();
+	const { register, handleSubmit, setValue } = useForm<IForm>();
 	const onValid = (data: IForm) => {
+		setValue("keyword", "");
 		navigate(`/search?keyword=${data.keyword}`);
 	};
 	return (
@@ -73,7 +74,7 @@ export default function Header() {
 						</Item>
 						<Item>
 							<Link to="tv">
-								Tv Shows
+								TV Shows
 								{tvMatch && <Circle layoutId="circle" />}
 							</Link>
 						</Item>
@@ -95,7 +96,11 @@ export default function Header() {
 						<Input
 							{...register("keyword", {
 								required: true,
-								minLength: 2,
+								minLength: {
+									value: 2,
+									message:
+										"Please enter at least 2 characters.",
+								},
 							})}
 							id="searchBox"
 							animate={{ scaleX: searchOpen ? 1 : 0 }}

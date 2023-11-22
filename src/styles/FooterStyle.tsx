@@ -5,9 +5,7 @@ export const FooterContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-	height: 35%;
 	position: absolute;
-	padding: 4rem 8rem;
 	background-color: transparent;
 `;
 
@@ -20,11 +18,14 @@ export const FooterIcons = styled.div`
 export const FooterTitles = styled.div`
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
+	gap: 10px;
+
 	a {
 		width: 100%;
-		font-size: 14px;
+		font-size: 13px;
 		margin: 0.5rem 0;
 		color: rgba(255, 255, 255, 0.4);
+		cursor: pointer;
 		&:hover {
 			color: white;
 		}

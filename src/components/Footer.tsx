@@ -37,18 +37,18 @@ export default function Footer() {
 					</a>
 				</FooterIcons>
 				<FooterTitles>
-					<a href="javascript:void(0);">Audio Description</a>
-					<a href="javascript:void(0);">Help Center</a>
-					<a href="javascript:void(0);">Gift Cards</a>
-					<a href="javascript:void(0);">Media Center</a>
-					<a href="javascript:void(0);">Investor Relations</a>
-					<a href="javascript:void(0);">Jobs</a>
-					<a href="javascript:void(0);">Terms of Use</a>
-					<a href="javascript:void(0);">Privacy</a>
-					<a href="javascript:void(0);">Legal Notices</a>
-					<a href="javascript:void(0);">Cookie Perferences</a>
-					<a href="javascript:void(0);">Corporate Information</a>
-					<a href="javascript:void(0);">Contact Us</a>
+					<a>Audio Description</a>
+					<a>Help Center</a>
+					<a>Gift Cards</a>
+					<a>Media Center</a>
+					<a>Investor Relations</a>
+					<a>Jobs</a>
+					<a>Terms of Use</a>
+					<a>Privacy</a>
+					<a>Legal Notices</a>
+					<a>Cookie Perferences</a>
+					<a>Corporate Information</a>
+					<a>Contact Us</a>
 				</FooterTitles>
 				<ServiceCode>Service Code</ServiceCode>
 				<SiteInfo>
