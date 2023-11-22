@@ -77,7 +77,7 @@ export async function getMovieVideo(id: number) {
 
 export async function getTvAiringToday() {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/tv/airing_today?/videos?language=en-US&page=1`,
+		"https://api.themoviedb.org/3/tv/airing_today?/videos?language=en-US&page=1",
 		options
 	);
 	const jsonParse = await response.json();
@@ -93,7 +93,7 @@ export async function getTvOnTheAir() {
 }
 export async function getTvPopular() {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/tv/popular?/videos?language=en-US&page=1`,
+		`https://api.themoviedb.org/3/tv/popular?/videos?language=en-US&page=2`,
 		options
 	);
 	const jsonParse = await response.json();
@@ -123,4 +123,12 @@ export async function getTvDetail(id: number) {
 	);
 	const jsonParse = await response.json();
 	return jsonParse;
+}
+
+export async function getSearch(value: string, page: number) {
+	const response = await fetch(
+		`https://api.themoviedb.org/3/search/multi?query=${value}&include_adult=false&language=en-US&page=${page}`,
+		options
+	);
+	return await response.json();
 }

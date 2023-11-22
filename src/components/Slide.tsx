@@ -15,6 +15,8 @@ import { makeImagePath } from "../utils";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+const NO_IMAGE = "https://demofree.sirv.com/nope-not-here.jpg";
+
 export default function Slide({ data, title, category }: any) {
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -45,10 +47,13 @@ export default function Slide({ data, title, category }: any) {
 
 	let navigateId = "";
 	const onBoxClicked = (Id: string) => {
-		if (location.pathname.slice(1, 3) === "tv") navigateId = "tv";
-		else navigateId = "movies";
-		navigate(`/${navigateId}/${Id}`);
+		if (location.pathname.slice(1, 3) !== "se") {
+			if (location.pathname.slice(1, 3) === "tv") navigateId = "tv";
+			else navigateId = "movies";
+			navigate(`/${navigateId}/${Id}`);
+		}
 	};
+	console.log(location.pathname.slice(1, 3));
 	return (
 		<Slider>
 			<SliderTitle>{title}</SliderTitle>
@@ -101,12 +106,16 @@ export default function Slide({ data, title, category }: any) {
 								onClick={() =>
 									onBoxClicked(category + current.id)
 								}
-								bgphoto={makeImagePath(
-									current.backdrop_path
-										? current.backdrop_path
-										: current.poster_path,
-									"w500"
-								)}
+								bgphoto={
+									current.backdrop_path || current.poster_path
+										? makeImagePath(
+												current.backdrop_path
+													? current.backdrop_path
+													: current.poster_path,
+												"w500"
+										  )
+										: NO_IMAGE
+								}
 							>
 								<Info variants={infoVariants}>
 									<h4>

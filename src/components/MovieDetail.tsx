@@ -14,7 +14,7 @@ import {
 	Overlay,
 } from "../styles/MovieDetailStyle";
 
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { makeImagePath } from "../utils";
 interface IMovieDetails {
@@ -34,15 +34,13 @@ export default function MovieDetail({ bigMatch, clickedBox }: any) {
 	const onOverlayClick = () => navigate(-1);
 	const id = clickedBox.id;
 	const isMovie = bigMatch.params.movieId ? true : false;
+
+	const { data: movieVideo, isLoading: getVideoIsLoading } =
+		useQuery<IVideoDetails>("MovieVideoId", () => getMovieVideo(id));
 	const { data: genre, isLoading: genreIsLoading } = useQuery<IMovieDetails>(
 		"genres",
 		() => getMovieDetail(id)
 	);
-	const { data: movieVideo, isLoading: getVideoIsLoading } =
-		useQuery<IVideoDetails>("MovieVideoId", () => getMovieVideo(id));
-	// const { data: tvDetail, isLoading: getTvVDetailLoading } =
-	// 	useQuery<IMovieDetails>("TvVideoId", () => getTvDetail(id));
-
 	function getVideoId(data: any) {
 		let getId = data?.results?.find(
 			(current: any) => current.data === "Teaser"
@@ -50,7 +48,9 @@ export default function MovieDetail({ bigMatch, clickedBox }: any) {
 		return getId ? getId.key : data?.results[0].key;
 	}
 	let videoId = "";
-	if (isMovie && !getVideoIsLoading) videoId = getVideoId(movieVideo);
+	if (isMovie && clickedBox) {
+		videoId = getVideoId(movieVideo);
+	}
 
 	function getMovieGenres(data: any) {
 		return data.genres?.map((genre: any) => genre.name).join(", ");

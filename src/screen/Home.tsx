@@ -6,29 +6,12 @@ import {
 	getUpComing,
 	IMovieResult,
 } from "../api";
-import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
 import { useMatch } from "react-router-dom";
 import MainDisplay from "./MainDisplay";
 import Slide from "../components/Slide";
 import MovieDetail from "../components/MovieDetail";
-
-export const Wrapper = styled.div`
-	position: relative;
-	width: 100%;
-	height: 180vh;
-	background-color: transparent;
-`;
-export const Loader = styled.div`
-	height: 20vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`;
-export const SlideContainer = styled.div`
-	width: 100%;
-	height: 300px;
-`;
+import { Loader, SlideContainer, Wrapper } from "../styles/HomeStyle";
 
 export default function Home() {
 	const bigMovieMatch = useMatch("/movies/:movieId");
